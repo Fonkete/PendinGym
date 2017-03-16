@@ -73,6 +73,10 @@ public class PendingListFragment extends Fragment implements PendingClickListene
 
     @Override
     public void clickedPending(Pending pending) {
+        Intent intent = new Intent(getActivity(),ClosePendingFragment.class);
+        intent.putExtra("PENDING", pending);
+        startActivity(intent);
+
 
     }
 }

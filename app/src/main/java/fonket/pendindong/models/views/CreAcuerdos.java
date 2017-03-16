@@ -7,7 +7,7 @@ import fonket.pendindong.models.models.Pending;
  */
 
 public class CreAcuerdos {
-    private Pendingback callback;
+    public Pendingback callback;
 
     public CreAcuerdos(Pendingback callback) {
         this.callback = callback;
@@ -18,6 +18,7 @@ public class CreAcuerdos {
             pending.setName(name);
             pending.setDone(false);
             pending.save();
+            pending.getName();
             callback.created(pending);
         }else {
             callback.noname();

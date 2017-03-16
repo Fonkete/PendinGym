@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,17 +20,17 @@ import fonket.pendindong.models.views.ClosePendingFragment;
  * Created by felip on 03-03-2017.
  */
 
-public class PendingsAdapter extends RecyclerView.Adapter<PendingsAdapter.ViewHolder> {
+public class PendingsDoneAdapter extends RecyclerView.Adapter<PendingsDoneAdapter.ViewHolder> {
 
     private List<Pending> pendings = new Queries().notDone();
     private PendingClickListener listener;
 
-    public PendingsAdapter(PendingClickListener listener) {
+    public PendingsDoneAdapter(PendingClickListener listener) {
         this.listener = listener;
     }
 
 
-    public PendingsAdapter(ClosePendingFragment closePendingFragment) {
+    public PendingsDoneAdapter(ClosePendingFragment closePendingFragment) {
     }
 
     @Override
@@ -44,38 +44,6 @@ public class PendingsAdapter extends RecyclerView.Adapter<PendingsAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Pending pending = pendings.get(position);
         holder.textView.setText(pending.getName());
-        holder.checkBox.setChecked(pending.isDone());
-
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    final int adapterPosition = holder.getAdapterPosition();
-                    Pending auxPending = pendings.get(adapterPosition);
-                    auxPending.setDone(true);
-                    auxPending.save();
-
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            pendings.remove(adapterPosition);
-                            notifyItemRemoved(adapterPosition);
-                        }
-                    }, 200);
-                }
-            }
-        });
-
-        holder.textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Pending auxPending = pendings.get(holder.getAdapterPosition());
-                listener.clickedId(auxPending.getId());
-                //listener.clickedPending(auxPending);
-            }
-        });
 
     }
 
